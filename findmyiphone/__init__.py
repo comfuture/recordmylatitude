@@ -182,7 +182,6 @@ class FindMyIPhone(object):
     
     def update_devices(self):
         # log 'updateDevices...'
-        print 'updateDevices...'
         body = json.dumps({
             "clientContext":{
                 "appName":"FindMyiPhone",
