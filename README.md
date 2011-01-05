@@ -10,6 +10,16 @@ findmyiphone
 findmyiphone is unofficial api client for find my iphone service of apple me.com.
 original source code comes from [Sosumi][1]
 
+authsub
+-------
+
+[AuthSub][3] is google's own 3rd party authorization api.
+latitude api documentation [says][4] "In order to access a user's location data, you need to obtain their authorization using the OAuth protocol" but seems only authsub is supported now.so i did wrote code for easily create authsub client.
+
+googleapi
+---------
+
+contains only latitude api client now.
 
 LICENSE
 -------
@@ -27,3 +37,5 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 [1]: https://github.com/tylerhall/sosumi
 [2]: https://github.com/ablyler/playnice
+[3]: http://code.google.com/intl/ko/apis/accounts/docs/AuthSub.html
+[4]: http://code.google.com/intl/ko/apis/latitude/v1/using_rest.html#auth
