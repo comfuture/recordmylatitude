@@ -253,9 +253,10 @@ class FindMyIPhone(object):
             'Authorization': 'Basic %s' % base64.encodestring('%s:%s' % (self.username, self.password,))[:-1],
         })
 
-        req = urllib2.Request(url, '%s' % body, headers)
-        resp = urllib2.urlopen(req)
+        opener = urllib2.build_opener(HTTPErrorProcessor())
 
+        req = urllib2.Request(url, '%s' % body, headers)
+        resp = opener.open(req)
 
         if return_headers:
             return resp.headers, resp.read()
@@ -272,3 +273,27 @@ class Device(object):
     
     def __repr__(self):
         return '<Device id="%s" name="%s">' % (self.id, self.name,)
+
+
+class HTTPErrorProcessor(urllib2.HTTPErrorProcessor):
+    """ignores 330 error.
+    urllib2 raises 330 error when redirected response did not contains
+    any content. (expected: 204 No Contents)
+    """
+    handler_order = 1000  # after all other processing
+
+    def http_response(self, request, response):
+        code, msg, hdrs = response.code, response.msg, response.info()
+
+        if code == 330:
+            code = 204
+        # According to RFC 2616, "2xx" code indicates that the client's
+        # request was successfully received, understood, and accepted.
+        if not (200 <= code < 300):
+            response = self.parent.error(
+                'http', request, response, code, msg, hdrs)
+
+        return response
+
+    https_response = http_response
+
