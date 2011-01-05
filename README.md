@@ -1,14 +1,14 @@
 record my latitude
 ==================
 
+recordmylatitude records iOS's location information to Google latitude service. original idea comes from [playnice][2] 
+(not yet implemented)
+
 findmyiphone
 ------------
 
 findmyiphone is unofficial api client for find my iphone service of apple me.com.
 original source code comes from [Sosumi][1]
-
-it needed modified version of urllib2.py because urllib2 of python2.6(maybe same other versions) raises HTTP 330 error when redirected response did not contains any content body.
-this can be fixed by implement alternative HTTPErrorHandler later.
 
 
 LICENSE
@@ -26,3 +26,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
 [1]: https://github.com/tylerhall/sosumi
+[2]: https://github.com/ablyler/playnice
