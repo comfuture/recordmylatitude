@@ -8,9 +8,11 @@ class BaseStore(object):
         pass
 
     def get(self, scope, **kwargs):
+        """get token string from given scope"""
         return self.jar.get(scope)
 
     def set(self, scope, value, **kwargs):
+        """set token value of scope"""
         self.jar[scope] = value
 
 class FileStore(BaseStore):
@@ -20,19 +22,23 @@ class FileStore(BaseStore):
         self.load()
 
     def load(self):
-        with open(self.filename) as r:
-            self.jar.update(dict([tuple(line.strip().split(' ', 2))
-                for line in r.readlines()]))
-    
+        try:
+            with open(self.filename) as r:
+                self.jar.update(dict([tuple(line.strip().split(' ', 2))
+                    for line in r.readlines()]))
+        except IOError, e:
+            pass
+        
     def save(self):
         content = '\n'.join(['%s %s' % k, v for k, v in self.jar.iteritems()])
-        with open(self.filename, 'w') as r:
-            r.write(content)
+        try:
+            with open(self.filename, 'w') as r:
+                r.write(content)
+        except IOError, e:
+            print "Can't open file '%s' for write" % self.filename
 
-    def get(self, scope, **kwargs):
-        return self.jar.get(scope)
-        
     def set(self, scope, value, **kwargs):
+        """save token for scope to file"""
         self.jar[scope] = value
         self.save()
 
@@ -48,6 +54,7 @@ class Client(object):
         self.params.update(kwargs)
 
     def auth(self, next, callback=None):
+        """create authsub authorize url"""
         self.params['next'] = next
         url = '%s?%w'% (self.AUTHSUB_URL, urllib.urlencode(self.params))
         if callback:
@@ -55,16 +62,14 @@ class Client(object):
         return url
 
     def upgrade_token(self):
-        storage = FileAuthSubStore()
+        """upgrade single token to session token"""
         headers, content = self.request(self.SESSION_TOKEN_URL,
             {'token': self.store.get(self.scope)})
         dummy, self.token = map(lambda s: s.strip(), content.split('='))
         self.store.set(self.scope, self.token)
 
-    def callback(self):
-        pass
-
     def request(self, url, params={}, headers={}):
+        """make http request with authsub authorization header"""
         if self.token:
             headers['Authorization'] = 'AuthSub token="%s"' % self.token
         req = urllib2.Request(url, urllib.urlencode(params), headers)

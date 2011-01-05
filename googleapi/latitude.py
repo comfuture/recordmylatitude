@@ -14,9 +14,11 @@ class Latitude(Client):
         print self.token
 
     def api(self, what):
+        """call api"""
         return self.request('%s%s?key=%s' % (self.API_BASE, what, self.key,))
 
     def current_location(self):
+        """returns current location json string"""
         headers, content = self.api('currentLocation')
         return content
 
