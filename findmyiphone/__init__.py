@@ -5,12 +5,28 @@ import urllib2
 import datetime
 import time
 import base64
-import simplejson as json
+
+json_available = True
+json = None
+try:
+    import simplejson as json
+except ImportError:
+    try:
+        import json
+    except ImportError:
+        try:
+            # Google Appengine offers simplejson via django
+            from django.utils import simplejson as json
+        except ImportError:
+            json_available = False
 
 class FindMyIPhone(object):
     partition = None
 
     def __init__(self, username, password, debug=False):
+        if not json_available:
+            raise Exception("json library required")
+
         self.devices = []
         self.debug = debug
         self.username = username
