@@ -39,8 +39,8 @@ class FindMyIPhone(object):
         body = json.dumps({
             "clientContext":{
                 "appName":"FindMyiPhone",
-                "appVersion":"1.1",
-                "buildVersion":"99",
+                "appVersion":"1.2",
+                "buildVersion":"145",
                 "deviceUDID":"0000000000000000000000000000000000000000",
                 "inactiveTime":2147483647,
                 "osVersion":"4.2.1",
@@ -74,8 +74,8 @@ class FindMyIPhone(object):
         body = json.dumps({
             "clientContext":{
                 "appName":"FindMyiPhone",
-                "appVersion":"1.1",
-                "buildVersion":"99",
+                "appVersion":"1.2",
+                "buildVersion":"145",
                 "deviceUDID":"0000000000000000000000000000000000000000",
                 "inactiveTime":5911,
                 "osVersion":"3.2",
@@ -118,8 +118,8 @@ class FindMyIPhone(object):
         body = json.dumps({
             "clientContext":{
                 "appName":"FindMyiPhone",
-                "appVersion":"1.1",
-                "buildVersion":"99",
+                "appVersion":"1.2",
+                "buildVersion":"145",
                 "deviceUDID":"0000000000000000000000000000000000000000",
                 "inactiveTime":5911,
                 "osVersion":"3.2",
@@ -160,8 +160,8 @@ class FindMyIPhone(object):
         body = json.dumps({
             "clientContext":{
                 "appName":"FindMyiPhone",
-                "appVersion":"1.1",
-                "buildVersion":"99",
+                "appVersion":"1.2",
+                "buildVersion":"145",
                 "deviceUDID":"0000000000000000000000000000000000000000",
                 "inactiveTime":5911,
                 "osVersion":"3.2",
@@ -201,8 +201,8 @@ class FindMyIPhone(object):
         body = json.dumps({
             "clientContext":{
                 "appName":"FindMyiPhone",
-                "appVersion":"1.1",
-                "buildVersion":"99",
+                "appVersion":"1.2",
+                "buildVersion":"145",
                 "deviceUDID":"0000000000000000000000000000000000000000",
                 "inactiveTime":2147483647,
                 "osVersion":"4.2.1",
@@ -247,7 +247,7 @@ class FindMyIPhone(object):
         if self.partition:
             url = 'https://' + self.partition + url
         else:
-            url = 'https://fmipmobile.me.com' + url
+            url = 'https://fmipmobile.icloud.com' + url
         
         # log url
         # log postdata
@@ -261,9 +261,9 @@ class FindMyIPhone(object):
             'X-Apple-Find-Api-Ver': '2.0',
             'X-Apple-Authscheme': 'UserIdGuest',
             'X-Apple-Realm-Support': '1.0',
-            'User-agent': 'Find iPhone/1.1 MeKit (iPad: iPhone OS/4.2.1)',
+            'User-agent': 'Find iPhone/1.2 MeKit (iPad: iPhone OS/4.2.1)',
             'X-Client-Name': 'iPad',
-            'X-Client-Uuid': '0cf3dc501ff812adb0b202baed4f37274b210853',
+            'X-Client-UUID': '0cf3dc501ff812adb0b202baed4f37274b210853',
             'Accept-Language': 'en-us',
             'Connection': 'keep-alive',
             'Authorization': 'Basic %s' % base64.encodestring('%s:%s' % (self.username, self.password,))[:-1],
