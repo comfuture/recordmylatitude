@@ -39,7 +39,7 @@ class FindMyIPhone(object):
         body = json.dumps({
             "clientContext":{
                 "appName":"FindMyiPhone",
-                "appVersion":"1.2",
+                "appVersion":"1.4",
                 "buildVersion":"145",
                 "deviceUDID":"0000000000000000000000000000000000000000",
                 "inactiveTime":2147483647,
@@ -74,7 +74,7 @@ class FindMyIPhone(object):
         body = json.dumps({
             "clientContext":{
                 "appName":"FindMyiPhone",
-                "appVersion":"1.2",
+                "appVersion":"1.4",
                 "buildVersion":"145",
                 "deviceUDID":"0000000000000000000000000000000000000000",
                 "inactiveTime":5911,
@@ -118,7 +118,7 @@ class FindMyIPhone(object):
         body = json.dumps({
             "clientContext":{
                 "appName":"FindMyiPhone",
-                "appVersion":"1.2",
+                "appVersion":"1.4",
                 "buildVersion":"145",
                 "deviceUDID":"0000000000000000000000000000000000000000",
                 "inactiveTime":5911,
@@ -160,7 +160,7 @@ class FindMyIPhone(object):
         body = json.dumps({
             "clientContext":{
                 "appName":"FindMyiPhone",
-                "appVersion":"1.2",
+                "appVersion":"1.4",
                 "buildVersion":"145",
                 "deviceUDID":"0000000000000000000000000000000000000000",
                 "inactiveTime":5911,
@@ -201,7 +201,7 @@ class FindMyIPhone(object):
         body = json.dumps({
             "clientContext":{
                 "appName":"FindMyiPhone",
-                "appVersion":"1.2",
+                "appVersion":"1.4",
                 "buildVersion":"145",
                 "deviceUDID":"0000000000000000000000000000000000000000",
                 "inactiveTime":2147483647,
