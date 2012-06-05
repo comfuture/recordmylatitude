@@ -30,7 +30,7 @@ class FileStore(BaseStore):
             pass
         
     def save(self):
-        content = '\n'.join(['%s %s' % k, v for k, v in self.jar.iteritems()])
+        content = '\n'.join(['%s %s' % (k, v) for k, v in self.jar.iteritems()])
         try:
             with open(self.filename, 'w') as r:
                 r.write(content)
