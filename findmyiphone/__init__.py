@@ -54,7 +54,8 @@ class FindMyIPhone(object):
     def locate(self, device_num=0, max_wait=300):
         start = int(time.time())
         
-        while not self.devices[device_num].location_finished:
+        while not (hasattr(self.devices[device_num], 'location_finished') and \
+		   self.devices[device_num].location_finished):
             # log
             if int(time.time()) - start > max_wait:
                 raise Exception("Unable to find location within '%s' seconds" % max_wait)
