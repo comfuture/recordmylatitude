@@ -326,14 +326,12 @@ if __name__ == "__main__":
         fmi = FindMyIPhone( sys.argv[ 1 ], sys.argv[ 2 ] )
         for i, device in enumerate( fmi.devices ):
             location = fmi.locate( i )
-	    output = device.name
+	    print device.name,
 	    if reference:
-	        output += ' proximity: '
 	        distance = []
 	        for x in [ 'latitude', 'longitude' ]:
 		    distance.append( str( abs( reference[ x ] - location[ x ] ) ) )
-	        output += ','.join( distance )
-	    output += ' %s' % location
-        print output
+	        location[ 'proximity' ] = ( distance[ 0 ], distance[ 1 ] )
+	    print location
     except IndexError:
         print 'usage: %s <username> <password> [<ref lat> <ref lon>]' % sys.argv[ 0 ]
