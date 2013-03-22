@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
+import sys
 import urllib
 import urllib2
 import datetime
@@ -314,3 +315,10 @@ class HTTPErrorProcessor(urllib2.HTTPErrorProcessor):
 
     https_response = http_response
 
+if __name__ == "__main__":
+    try:
+       fmi = FindMyIPhone( sys.argv[ 1 ], sys.argv[ 2 ] )
+       for i, device in enumerate( fmi.devices ):
+       	  print device.name, fmi.locate( i )
+    except IndexError:
+       print 'usage: %s <username> <password>' % sys.argv[ 0 ]
