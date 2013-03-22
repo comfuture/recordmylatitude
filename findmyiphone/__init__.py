@@ -317,8 +317,22 @@ class HTTPErrorProcessor(urllib2.HTTPErrorProcessor):
 
 if __name__ == "__main__":
     try:
-       fmi = FindMyIPhone( sys.argv[ 1 ], sys.argv[ 2 ] )
-       for i, device in enumerate( fmi.devices ):
-       	  print device.name, fmi.locate( i )
+        username = sys.argv[ 1 ]
+        password = sys.argv[ 2 ]
+        reference = None
+        if len( sys.argv ) == 5:
+            reference = { 'latitude' : float( sys.argv[ 3 ] ),
+	    		  'longitude' : float( sys.argv[ 4 ] ) }
+        fmi = FindMyIPhone( sys.argv[ 1 ], sys.argv[ 2 ] )
+        for i, device in enumerate( fmi.devices ):
+            location = fmi.locate( i )
+	    output = '%s %s' % ( device.name, location )
+	    if reference:
+	        output += ' proximity: '
+	        distance = []
+	        for x in [ 'latitude', 'longitude' ]:
+		    distance.append( str( abs( reference[ x ] - location[ x ] ) ) )
+	        output += ','.join( distance )
+        print output
     except IndexError:
-       print 'usage: %s <username> <password>' % sys.argv[ 0 ]
+        print 'usage: %s <username> <password> [<ref lat> <ref lon>]' % sys.argv[ 0 ]
