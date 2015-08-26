@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
+import sys
 import urllib
 import urllib2
 import datetime
@@ -54,7 +55,8 @@ class FindMyIPhone(object):
     def locate(self, device_num=0, max_wait=300):
         start = int(time.time())
         
-        while not self.devices[device_num].location_finished:
+        while not (hasattr(self.devices[device_num], 'location_finished') and \
+		   self.devices[device_num].location_finished):
             # log
             if int(time.time()) - start > max_wait:
                 raise Exception("Unable to find location within '%s' seconds" % max_wait)
@@ -238,8 +240,8 @@ class FindMyIPhone(object):
             device.id = json_device['id']
             device.name = json_device['name'].encode('utf-8')
             device.deviceClass = json_device['deviceClass']
-            device.chargingStatus = json_device['a']
-            device.batteryLevel = json_device['b']
+            device.chargingStatus = json_device['batteryStatus']
+            device.batteryLevel = json_device['batteryLevel']
             
             self.devices.append(device)
 
@@ -313,3 +315,23 @@ class HTTPErrorProcessor(urllib2.HTTPErrorProcessor):
 
     https_response = http_response
 
+if __name__ == "__main__":
+    try:
+        username = sys.argv[ 1 ]
+        password = sys.argv[ 2 ]
+        reference = None
+        if len( sys.argv ) == 5:
+            reference = { 'latitude' : float( sys.argv[ 3 ] ),
+	    		  'longitude' : float( sys.argv[ 4 ] ) }
+        fmi = FindMyIPhone( sys.argv[ 1 ], sys.argv[ 2 ] )
+        for i, device in enumerate( fmi.devices ):
+            location = fmi.locate( i )
+	    print device.name,
+	    if reference:
+	        distance = []
+	        for x in [ 'latitude', 'longitude' ]:
+		    distance.append( str( abs( reference[ x ] - location[ x ] ) ) )
+	        location[ 'proximity' ] = ( distance[ 0 ], distance[ 1 ] )
+	    print location
+    except IndexError:
+        print 'usage: %s <username> <password> [<ref lat> <ref lon>]' % sys.argv[ 0 ]
